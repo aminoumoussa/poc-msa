@@ -4,10 +4,10 @@
     policy: targeted
     state: permissive
 
-- name: Update system
-  package:
-    name: "*"
-    state: latest
+# - name: Update system
+#   package:
+#     name: "*"
+#     state: latest
 
 - name: Install common packages
   package:
