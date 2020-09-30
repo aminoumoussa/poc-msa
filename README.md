@@ -8,8 +8,8 @@ Ces playbooks permettent d'automatiser le deploiement du cluster de kubernetes a
 ## Prerequis pour les VM
 - Redhat8/Centos8
 - VM avec une connection internet
-- Connexion ssh par private_key 
-- Installation de ansible sur le desktop client
+- Connexion ssh par private_key : https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/create-with-putty/
+- Installation de ansible sur le desktop client : https://www.how2shout.com/how-to/how-to-install-ansible-on-windows-10.html
 
 ## Provisioning des VM en local (VirtualBox) avec vagrant
 
