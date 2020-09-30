@@ -1,25 +1,17 @@
-- hosts: master
-  remote_user: vagrant
-  become: yes
-  become_method: sudo
-  gather_facts: false
-  tasks:
-    - name: get join command
-      shell: kubeadm token create --print-join-command
-      register: join_command_raw
-
-    - name: set join command
-      set_fact:
-        join_command: "{{ join_command_raw.stdout_lines[0] }}"
-
-
 - hosts: workers
   remote_user: vagrant
   become: yes
   become_method: sudo
+  gather_facts: false
+  vars_files:
+    - env_variables
+
   tasks:
-    - name: join cluster
-      shell: "{{ hostvars['master'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
-      args:
-        chdir: $HOME
-        creates: node_joined.txt
+    - name: Copying token to worker nodes
+      copy: src={{ token_file }} dest=join_token
+
+    - name: Joining worker nodes with kubernetes master
+      shell: |
+       kubeadm reset -f
+       cat join_token | tail -2 > out.sh
+       sh out.sh

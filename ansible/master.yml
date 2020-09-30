@@ -1,18 +1,27 @@
 - hosts: master
   remote_user: vagrant
   become: yes
-  become_method: sudo
+  # become_method: sudo
+  vars_files:
+    - env_variables
 
   tasks:
-    - name: initialize the cluster
-      shell: kubeadm init  --apiserver-advertise-address=192.168.1.30 --pod-network-cidr=192.168.0.0/16 >> cluster_initialized.txt
-      args:
-        chdir: $HOME
-        creates: cluster_initialized.txt
 
+    - name: Resetting kubeadm
+      shell: kubeadm reset -f
+      register: output
+
+    - name: initialize the cluster
+      shell: kubeadm init  --apiserver-advertise-address=192.168.1.30 --pod-network-cidr=192.168.0.0/16
+      register: output
+
+    - name: Storing Logs and Generated token for future purpose
+      local_action : copy content="{{ output.stdout }}"  dest="{{ token_file }}"
+     
+        
     - name: create .kube directory
       become: yes
-      become_user: centos # Change to the appropriate user
+      become_user: vagrant # Change to the appropriate user
       file:
         path: $HOME/.kube
         state: directory
@@ -21,13 +30,14 @@
     - name: copy admin.conf to user's kube config
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: /home/centos/.kube/config
+        dest: /home/vagrant/.kube/config
         remote_src: yes
-        owner: centos # Change to the appropriate user
+        owner: vagrant # Change to the appropriate user
+    
 
     - name: install Pod network
       become: yes
-      become_user: centos
+      become_user: vagrant
       shell: kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml >> pod_network_setup.txt
       args:
         chdir: $HOME
