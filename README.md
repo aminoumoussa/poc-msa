@@ -1,18 +1,19 @@
-## Automatisation du deploiement de Kubernetes
+# Automatisation du deploiement de Kubernetes
 
-> Ces playbooks permettent d'automatiser le deploiement du cluster de kubernetes avec un master et deux nodes.
-
-## OS Supporter
-
-- CentOS 8
+Ces playbooks permettent d'automatiser le deploiement du cluster de kubernetes avec un master et deux nodes.
 
 ## Architecture du POC
 ![K8S](k8s.png)
 
+## Prerequis pour les VM
+- Redhat8/Centos8
+- VM avec une connection internet
+- Connexion ssh par private_key 
+- Installation de ansible sur le desktop client
 
-# Provisioning des VM en local (VirtualBox) avec vagrant
+## Provisioning des VM en local (VirtualBox) avec vagrant
 
-L'utilisation de vagrant permet d'automatiser le deploiement des VM (Centos8)
+L'utilisation de vagrant permet d'automatiser le deploiement des VM (Centos8) sur virtualbox
 
 Installez vangrant sur la machine local
 
@@ -36,7 +37,6 @@ Pour permettre a ansible de se connecter via public/private key generer une pair
 ## Les taches dans les roles
 
 Le role contient les taches suivantes:
-
 
 - Installation des packages requis
 - Configuration des exigences système standard - Disable Swap, Modify sysctl, Disable SELinux
