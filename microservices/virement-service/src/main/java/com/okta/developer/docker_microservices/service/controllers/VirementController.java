@@ -8,6 +8,7 @@ import com.okta.developer.docker_microservices.service.services.VirementService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
@@ -19,7 +20,8 @@ import java.util.stream.*;
 
 import java.util.List;
 
-@RestController("/virement")
+@RestController
+@RequestMapping("/virement")
 public class VirementController {
 
 
@@ -29,14 +31,14 @@ public class VirementController {
         this.virementService = virementService;
     }
 
-    @GetMapping
+    @RequestMapping(value="/list")
     public List<Virement> listVirements(){
         return virementService.listVirements();
     }
  
-    @PostMapping
+    @PostMapping(value="/save")
     public void saveVirement(@RequestBody @Validated VirementDto virementDto){
-        virementService.saveVirement(new Virement(virementDto.getClient(), virementDto.getBenef(), virementDto.getMontant()));
+        virementService.saveVirement(new Virement(virementDto.getClient(), virementDto.getBeneficiaire(), virementDto.getMontant()));
     }
 
 

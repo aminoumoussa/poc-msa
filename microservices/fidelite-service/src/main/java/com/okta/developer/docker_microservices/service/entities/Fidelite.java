@@ -9,48 +9,41 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 
 @Entity
-public class Virement {
+public class Fidelite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NonNull
     @Column
     private String client;
 
-    @Column
-    private String beneficiaire;
-    
     @NonNull
     @Column
-    private Integer montant;
+    private Integer point;
 
-    public Virement(String client, String beneficiaire, Integer montant) {
+    public Fidelite(String client, Integer point) {
         this.client = client;
-        this.beneficiaire = beneficiaire;
-        this.montant = montant;
+        this.point = point;
     }
 
-    protected Virement() {
+    protected Fidelite() {
 
     }
     public Long getId() {
         return id;
     }
 
-    public Integer getMontant() {
-        return montant;
+    public Integer getPoint() {
+        return point;
     }
 
     public String getClient() { return client; }
-    public String getBeneficiaire() { return beneficiaire; }
-
     
-
-    public void setMontant(Integer montant) {
-        this.montant = montant;
+    public void setPoint(Integer point) {
+        this.point = point;
     }
 
     public void setClient(String client) { this.client = client;}
-    public void setBeneficiaire(String beneficiaire) { this.beneficiaire = beneficiaire;}
 
 
 

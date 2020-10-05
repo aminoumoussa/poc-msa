@@ -32,7 +32,7 @@ public class VirementDto {
     }
 
     public String getClient() { return client; }
-    public String getBenef() { return beneficiaire; }
+    public String getBeneficiaire() { return beneficiaire; }
 
     
 
@@ -41,6 +41,6 @@ public class VirementDto {
     }
 
     public void setClient(String client) { this.client = client;}
-    public void setBenef(String benef) { this.beneficiaire = benef;}
+    public void setBeneficiaire(String beneficiaire) { this.beneficiaire = beneficiaire;}
 
 }
